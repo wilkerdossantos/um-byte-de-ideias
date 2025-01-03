@@ -1,0 +1,4 @@
+Django==5.1.4
+django-tinymce==4.1.0
+pillow==11.1.0
+python-dotenv==1.0.1

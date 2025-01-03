@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% block title %}
+1B de i: {{ post.title }}
+{% endblock %}
+{% block header %}
+{% if post.header_image %}
+<header class="blog-header" style="background: url('{{ post.header_image.url }}') center center / cover no-repeat;">
+  {% else %}
+  <header class="blog-header" style="background: url('') center center / cover no-repeat;">
+    {% endif %}
+    <div class="container">
+      <h1 class="display-4">{{ post.title }}</h1>
+      <p class="card-subtitle mb-2 text-muted">Publicado por {{ post.author.name }}</p>
+      <p class="lead">{{ post.subtitle }}</p>
+      <p class="text-muted">Publicado em {{ post.created_at|date:"d M Y H:i" }}</p>
+    </div>
+  </header>
+  {% endblock %}
+
+  {% block content %}
+  <div class="container mt-5">
+    <div class="row">
+      <!-- Blog Post Content -->
+      <div class="col-lg-8">
+        <div class="post-content">
+          {{ post.content|safe }}
+        </div>
+
+        <!-- Tags Section -->
+        <div class="tags-section mt-5">
+          <h5>Tags:</h5>
+          {% for tag in post.tag.all %}
+          <a href="{% url 'tag_detail' tag.slug %}" class="btn btn-outline-dark btn-sm">{{tag.name}}</a>
+          {% endfor %}
+        </div>
+
+        <!-- Comments Section -->
+        <section id="comments">
+          <div class="comments-section mt-5">
+            <h5>Comentários:</h5>
+            <form class="mb-4" method="post">
+              {% csrf_token %}
+              <div class="mb-3">
+                {{ form.name.errors }}
+                <label for="commentName" class="form-label">Seu Nome</label>
+                {{ form.name }}
+              </div>
+              <div class="mb-3">
+                {{ form.email.errors }}
+                <label for="commentEmail" class="form-label">E-mail</label>
+                {{ form.email }}
+              </div>
+              <div class="mb-3">
+                {{ form.comment.errors }}
+                <label for="commentText" class="form-label">Comentário</label>
+                {{ form.comment }}
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+            {% for comment in comments %}
+            <div class="user-comment mb-3">
+              <strong>{{comment.name}}</strong>
+              <p>{{comment.comment}}</p>
+              <hr>
+            </div>
+            {% endfor %}
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      {% include 'components/_sidebar.html' %}
+      <h4 class="mt-4 mb-3">Autor</h4>
+      <div class="card">
+        <img src="{{ post.author.profile.url }}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">{{post.author.name}}</h5>
+          <p>
+            {{post.author.bio|safe|truncatewords:30}}
+            <a href="{% url 'author_list' %}#{{ post.author.slug }}" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">ver mais</a>
+          </p>
+          <div class="social-buttons-black">
+            {% if post.author.linkedin %}
+            <a href="{{ post.author.linkedin }}" target="_blank"><i
+                class="bi bi-linkedin"></i></a>
+            {% endif %}
+            {% if post.author.github %}
+            <a href="{{ post.author.github }}" target="_blank"><i class="bi bi-github"></i></a>
+            {% endif %}
+            {% if post.author.x %}
+            <a href="{{ post.author.x }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  {% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}
+Um Byte de Ideias: Explorando tecnologia, um byte por vez.
+{% endblock %}
+{% block header %}
+<header class="blog-header" style="background: url('/media/home-bg.jpg') center center / cover no-repeat;">
+  <div class="container">
+    <h1 class="display-4">Um Byte de Ideias</h1>
+    <p class="lead">Explorando tecnologia, um byte por vez.</p>
+  </div>
+</header>
+{% endblock %}
+{% block search %}
+<form class="d-flex" role="search">
+  <input class="form-control me-2" type="search" name="search" placeholder="Buscar Publicação" aria-label="Search"
+    value="{{ request.GET.search }}">
+  <button class="btn btn-outline-info" type="submit">Buscar</button>
+</form>
+{% endblock %}
+{% block content %}
+<div class="text-bg-primary p-3">
+    <h3>
+      <i class="bi bi-boxes"></i> {{object.name}}
+    </h3>
+</div>
+<div class="container mt-5">
+  <div class="row">
+    <!-- Blog Posts -->
+    {% include 'components/_blog_posts.html' %}
+    <!-- Sidebar -->
+    {% include 'components/_sidebar.html' %}
+    <h4 class="mt-4 mb-3">Redes Sociais</h4>
+    <div class="social-buttons">
+      <a href="https://www.linkedin.com/in/wilker-santos/" target="_blank"><i class="bi bi-linkedin"></i></a>
+      <a href="https://github.com/wilkerdossantos" target="_blank"><i class="bi bi-github"></i></a>
+      <a href="https://github.com/wilkerdossantos" target="_blank"><i class="bi bi-twitter-x"></i></a>
+    </div>
+    </div>
+    </div>
+    <!-- Pagination -->
+    {% include 'components/_pagination.html' %}
+  </div>
+</div>
+{% endblock %}
