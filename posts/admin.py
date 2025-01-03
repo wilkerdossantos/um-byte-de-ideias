@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import Tag
+from .models import Post
 
-@admin.register(Tag)
-class TagsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'created_at')
-    prepopulated_fields = {'slug': ('name',)}
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    list_display = ('title', 'subtitle','created_at', 'published')
+    prepopulated_fields = {'slug': ('title', 'subtitle')}
