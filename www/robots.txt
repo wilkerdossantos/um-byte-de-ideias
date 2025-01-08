@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://umbytedeideias.com.br/sitemap.xml
