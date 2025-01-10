@@ -4,7 +4,8 @@
 {% endblock %}
 {% block header %}
 {% if post.header_image %}
-<header class="blog-header" style="background: url('{{ post.header_image.url }}') center center / cover no-repeat;">
+<header id="header" class="blog-header"
+  style="background: url('{{ post.header_image.url }}') center center / cover no-repeat;">
   {% else %}
   <header class="blog-header" style="background: url('') center center / cover no-repeat;">
     {% endif %}
@@ -18,6 +19,19 @@
   {% endblock %}
 
   {% block content %}
+  <!-- Botões de Compartilhamento -->
+  <div class="flex-column social-share mt-3 ms-5">
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank"><i
+        class="bi bi-linkedin" style="color: #005cb8;"></i></a>
+    <a href="https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}" target="_blank"><i
+        class="bi bi-twitter-x" style="color: black;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}" target="_blank"><i
+        class="bi bi-facebook" style="color: #0054dc;"></i></a>
+    <a href="https://api.whatsapp.com/send?text={{request.build_absolute_uri}}" target="_blank"><i
+        class="bi bi-whatsapp" style="color: #0dc143;"></i></a>
+    <a href="https://t.me/share/url?text={{request.build_absolute_uri}}" target="_blank"><i
+        class="bi bi-telegram" style="color: #006fde;"></i></a>
+  </div>
   <div class="container mt-5">
     <div class="row">
       <!-- Blog Post Content -->
@@ -25,7 +39,19 @@
         <div class="post-content">
           {{ post.content|safe }}
         </div>
-
+          <!-- Botões de Compartilhamento -->
+  <div class="flex-column social-share-mobile mt-3">
+    <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ request.build_absolute_uri }}" target="_blank"><i
+        class="bi bi-linkedin" style="color: #005cb8;"></i></a>
+    <a href="https://twitter.com/intent/tweet?text={{ request.build_absolute_uri }}" target="_blank"><i
+        class="bi bi-twitter-x" style="color: black;"></i></a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}" target="_blank"><i
+        class="bi bi-facebook" style="color: #0054dc;"></i></a>
+    <a href="https://api.whatsapp.com/send?text={{request.build_absolute_uri}}" target="_blank"><i
+        class="bi bi-whatsapp" style="color: #0dc143;"></i></a>
+    <a href="https://t.me/share/url?text={{request.build_absolute_uri}}" target="_blank"><i
+        class="bi bi-telegram" style="color: #006fde;"></i></a>
+  </div>
         <!-- Tags Section -->
         <div class="tags-section mt-5">
           <h5>Tags:</h5>
@@ -33,7 +59,6 @@
           <a href="{% url 'tag_detail' tag.slug %}" class="btn btn-outline-dark btn-sm">{{tag.name}}</a>
           {% endfor %}
         </div>
-
         <!-- Comments Section -->
         <section id="comments">
           <div class="comments-section mt-5">
@@ -77,12 +102,12 @@
           <h5 class="card-title">{{post.author.name}}</h5>
           <p>
             {{post.author.bio|safe|truncatewords:30}}
-            <a href="{% url 'author_list' %}#{{ post.author.slug }}" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">ver mais</a>
+            <a href="{% url 'author_list' %}#{{ post.author.slug }}"
+              class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">ver mais</a>
           </p>
           <div class="social-buttons-black">
             {% if post.author.linkedin %}
-            <a href="{{ post.author.linkedin }}" target="_blank"><i
-                class="bi bi-linkedin"></i></a>
+            <a href="{{ post.author.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
             {% endif %}
             {% if post.author.github %}
             <a href="{{ post.author.github }}" target="_blank"><i class="bi bi-github"></i></a>

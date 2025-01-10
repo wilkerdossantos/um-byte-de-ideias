@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from authors.models import Author
 from categories.models import Category
 from tags.models import Tag
@@ -24,3 +25,6 @@ class Post(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("post_detail", args=[str(self.slug)])
