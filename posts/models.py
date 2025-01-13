@@ -21,7 +21,7 @@ class Post(models.Model):
 
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['-updated_at']
 
     def __str__(self) -> str:
         return self.title

@@ -13,7 +13,7 @@
       <h1 class="display-4">{{ post.title }}</h1>
       <p class="card-subtitle mb-2 text-muted">Publicado por {{ post.author.name }}</p>
       <p class="lead">{{ post.subtitle }}</p>
-      <p class="text-muted">Publicado em {{ post.created_at|date:"d M Y H:i" }}</p>
+      <p class="text-muted">Atualizado em {{ post.updated_at|date:"d M Y H:i" }} | Publicado em {{ post.created_at|date:"d M Y H:i" }}</p>
     </div>
   </header>
   {% endblock %}

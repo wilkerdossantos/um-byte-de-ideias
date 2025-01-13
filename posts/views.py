@@ -12,7 +12,6 @@ class PostListView(ListView):
     model = models.Post
     template_name = 'post_list.html'
     context_object_name = 'posts'
-    ordering = ['-created_at']
     paginate_by = 5
 
     def get_queryset(self):
