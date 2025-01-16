@@ -23,8 +23,8 @@ jobs:
       - name: Configurar credenciais para o deploy
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 51.210.150.116 >> ~/.ssh/known_hosts
+          chmod 600 ~/id_rsa
+          ssh-keyscan -H 51.210.150.116 >> ~/known_hosts
 
       # 5. Realizar o deploy no servidor remoto
       - name: Realizar o deploy
