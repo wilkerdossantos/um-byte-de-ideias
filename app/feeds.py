@@ -5,7 +5,7 @@ from posts.models import Post
 class LatestPostsFeed(Feed):
     """returns the most recent posts."""
 
-    title = 'Um byte de ideias'
+    title = 'Um Byte de Ideias'
     link = '/feed/'
     description = 'Aprenda programação, explore tecnologias e domine metodologias ágeis. Tutoriais, insights e reflexões para curiosos e apaixonados por tecnologia!'
 
