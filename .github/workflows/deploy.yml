@@ -32,11 +32,12 @@ jobs:
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H <seu-servidor> >> ~/.ssh/known_hosts
+          ssh-keyscan -H 51.210.150.116 >> ~/.ssh/known_hosts
 
       # 5. Realizar o deploy no servidor remoto
       - name: Realizar o deploy
-        run: ssh ubuntu@51.210.150.116 -p 49152 'bash -s' <<'EOF'
+        run: |
+          ssh -i ~/.ssh/id_rsa -p 49152 ubuntu@51.210.150.116 << EOF
           # Navegar até o diretório do projeto no servidor
           cd /var/www/um-byte-de-ideias/
           
@@ -58,4 +59,4 @@ jobs:
           # Reiniciar o servidor (Exemplo com Gunicorn e Nginx)
           systemctl restart um-byte-de-ideias
           systemctl restart nginx
-        EOF
+          EOF
