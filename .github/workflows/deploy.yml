@@ -37,5 +37,5 @@ jobs:
             python manage.py collectstatic --noinput
             
             # Reiniciar o servidor (Exemplo com Gunicorn e Nginx)
-            systemctl restart um-byte-de-ideias
-            systemctl restart nginx
+            sudo systemctl restart um-byte-de-ideias
+            sudo systemctl restart nginx
