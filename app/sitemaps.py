@@ -53,6 +53,6 @@ class TagSitemap(Sitemap):
 
     def items(self):
         return Tag.objects.all()
-    
+
     def lastmod(self, obj):
         return obj.updated_at
