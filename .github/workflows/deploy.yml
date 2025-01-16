@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       — name: Checkout and restart the server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
