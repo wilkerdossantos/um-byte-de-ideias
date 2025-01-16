@@ -1,14 +1,16 @@
 name: Deploy on server
+
 on:
-push:
-  branches:
-    — master
+  push:
+    branches:
+      - master
+
 jobs:
   deploy:
     name: Deploy branch master
     runs-on: ubuntu-latest
     steps:
-      — name: Checkout and restart the server
+      - name: Checkout and restart the server
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.HOST }}
@@ -16,24 +18,24 @@ jobs:
           username: ${{ secrets.HOST_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-          # Navegar até o diretório do projeto no servidor
-          cd /var/www/um-byte-de-ideias/
-          
-          # Atualizar o repositório
-          git pull
-          
-          # Ativar ambiente virtual
-          source .venv/bin/activate
-          
-          # Instalar dependências
-          pip install -r requirements.txt
-          
-          # Aplicar migrações do Django
-          python manage.py migrate
-          
-          # Coletar arquivos estáticos
-          python manage.py collectstatic --noinput
-          
-          # Reiniciar o servidor (Exemplo com Gunicorn e Nginx)
-          systemctl restart um-byte-de-ideias
-          systemctl restart nginx
+            # Navegar até o diretório do projeto no servidor
+            cd /var/www/um-byte-de-ideias/
+            
+            # Atualizar o repositório
+            git pull
+            
+            # Ativar ambiente virtual
+            source .venv/bin/activate
+            
+            # Instalar dependências
+            pip install -r requirements.txt
+            
+            # Aplicar migrações do Django
+            python manage.py migrate
+            
+            # Coletar arquivos estáticos
+            python manage.py collectstatic --noinput
+            
+            # Reiniciar o servidor (Exemplo com Gunicorn e Nginx)
+            systemctl restart um-byte-de-ideias
+            systemctl restart nginx
