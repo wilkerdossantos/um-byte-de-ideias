@@ -26,9 +26,10 @@ jobs:
           source venv/bin/activate
           pip install -r requirements.txt
 
-      # 4. Configurar credenciais (se necessário)
+      # 4. Configurar credenciais (garantir criação do diretório)
       - name: Configurar credenciais para o deploy
         run: |
+          mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 51.210.150.116 >> ~/.ssh/known_hosts
