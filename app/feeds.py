@@ -24,7 +24,3 @@ class LatestPostsFeed(Feed):
     def item_pubdate(self, item):
       """returns the post creation date."""
       return item.updated_at
-
-    def item_updateddate(self, item):
-        """returns the post update date."""
-        return item.updated_at
