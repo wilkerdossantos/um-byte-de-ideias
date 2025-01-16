@@ -1,0 +1,61 @@
+name: Deploy Django App
+
+on:
+  push:
+    branches:
+      - main  # Substitua pela branch principal do seu projeto
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Fazer o checkout do repositório
+      - name: Checkout do repositório
+        uses: actions/checkout@v3
+
+      # 2. Configurar o Python
+      - name: Configurar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      # 3. Instalar dependências
+      - name: Instalar dependências
+        run: |
+          python -m venv venv
+          source venv/bin/activate
+          pip install -r requirements.txt
+
+      # 4. Configurar credenciais (se necessário)
+      - name: Configurar credenciais para o deploy
+        run: |
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H <seu-servidor> >> ~/.ssh/known_hosts
+
+      # 5. Realizar o deploy no servidor remoto
+      - name: Realizar o deploy
+        run: ssh ubuntu@51.210.150.116 -p 49152 'bash -s' <<'EOF'
+          # Navegar até o diretório do projeto no servidor
+          cd /var/www/um-byte-de-ideias/
+          
+          # Atualizar o repositório
+          git pull
+          
+          # Ativar ambiente virtual
+          source .venv/bin/activate
+          
+          # Instalar dependências
+          pip install -r requirements.txt
+          
+          # Aplicar migrações do Django
+          python manage.py migrate
+          
+          # Coletar arquivos estáticos
+          python manage.py collectstatic --noinput
+          
+          # Reiniciar o servidor (Exemplo com Gunicorn e Nginx)
+          systemctl restart um-byte-de-ideias
+          systemctl restart nginx
+        EOF
