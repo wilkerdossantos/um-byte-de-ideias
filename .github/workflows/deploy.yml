@@ -19,25 +19,17 @@ jobs:
         with:
           python-version: '3.10'
 
-      # 3. Instalar dependências
-      - name: Instalar dependências
-        run: |
-          python -m venv venv
-          source venv/bin/activate
-          pip install -r requirements.txt
-
       # 4. Configurar credenciais (garantir criação do diretório)
       - name: Configurar credenciais para o deploy
         run: |
-          mkdir -p $HOME/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 51.210.150.116 >> ~/.ssh/known_hosts
 
       # 5. Realizar o deploy no servidor remoto
       - name: Realizar o deploy
         run: |
-          ssh -i ~/.ssh/id_rsa -p 49152 ubuntu@51.210.150.116 << EOF
+          ssh -i ~/id_rsa -p 49152 ubuntu@51.210.150.116 << EOF
           # Navegar até o diretório do projeto no servidor
           cd /var/www/um-byte-de-ideias/
           
