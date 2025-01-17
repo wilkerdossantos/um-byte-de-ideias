@@ -140,7 +140,7 @@ footer {
 }
 
 /* Ajustar em telas menores */
-@media (max-width: 1000px) {
+@media (max-width: 1079px) {
     .social-share {
         display: none;
         position: static;
