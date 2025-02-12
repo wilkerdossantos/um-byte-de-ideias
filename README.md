@@ -6,7 +6,7 @@
 
 - **Django**: Framework web utilizado para o desenvolvimento do blog.
 - **Python**: Linguagem de programação usada no backend.
-- **HTML/CSS/JavaScript**: Para a construção do frontend.
+- **HTML/CSS/JavaScript - Bootstrap**: Para a construção do frontend.
 - **SQLite**: Banco de dados padrão para o desenvolvimento (pode ser configurado para usar outros DBs, como PostgreSQL).
 
 ## Instalação
