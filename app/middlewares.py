@@ -11,6 +11,6 @@ class AccessLogMiddleware(MiddlewareMixin):
             view=request.resolver_match.view_name,
             path=request.path,
             method=request.method,
-            ip=request.META.get('REMOTE_ADDR')
+            ip=request.META.get('REMOTE_ADDR') or request.META.get('HTTP_X_FORWARDED_FOR'),
         )
         return None
