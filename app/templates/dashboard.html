@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Dashboard</h1>
+            <p>Analise e Metricas de Acessos ao Blog!</p>
+            <div class="d-flex justify-content-start">
+                <div class="card text-bg-primary mb-3 mx-1" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title
+                        ">Total de Acessos</h5>
+                        <p class="card-text" style="font-size: 5rem;">{{ total_access }}</p>
+                    </div>
+                </div>
+                <div class="card text-bg-secondary mb-3 mx-1" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title
+                        ">Total de Posts</h5>
+                        <p class="card-text" style="font-size: 5rem;">{{ total_posts }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex justify-content-start">
+                <div class="container">
+                    <canvas id="dashboard"></canvas>
+                </div>
+                <div class="container">
+                    <canvas id="dashboard2"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctx = document.getElementById('dashboard').getContext('2d');
+    const accessPerDate = {{ access_per_date| safe }};
+    const labels = function () {
+        return accessPerDate.map((item) => item.date);
+    }();
+    const data = function () {
+        return accessPerDate.map((item) => item.count);
+    }();
+    const accessPerDateChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Acessos por dia',
+                data: data,
+                backgroundColor: 'blue',
+                borderColor: 'black',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Acessos Por Dia'
+                }
+            }
+        },
+    });
+    const accessPerPost = {{ access_per_post| safe }};
+    labelsPost = Object.keys(accessPerPost);
+    dataPost = Object.values(accessPerPost);
+    const ctxPost = document.getElementById('dashboard2').getContext('2d');
+    const accessPerPostChart = new Chart(ctxPost, {
+        type: 'bar',
+        data: {
+            labels: labelsPost,
+            datasets: [{
+                label: 'Acessos por Post',
+                data: dataPost,
+                backgroundColor: 'red',
+                borderColor: 'black',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: 'Acessos Por Post'
+                }
+            }
+        },
+    });
+</script>
+{% endblock %}
