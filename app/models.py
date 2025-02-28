@@ -6,7 +6,7 @@ class AccessLog(models.Model):
     view = models.CharField(max_length=255)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     method = models.CharField(max_length=10)
-    ip = models.GenericIPAddressField()
+    ip = models.GenericIPAddressField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
