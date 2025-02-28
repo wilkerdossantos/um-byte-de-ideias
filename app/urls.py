@@ -12,6 +12,7 @@ from .feeds import LatestPostsFeed
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tinymce', include('tinymce.urls')),
+    path('dashboard/', view=views.DashboardView.as_view(), name='dashboard'),
     path('contact/', view=views.ContactView.as_view(), name='contact'),
     path('contact/success/', view=views.ContactSucessView.as_view(), name='contact_success'),
     path('', include('posts.urls')),
