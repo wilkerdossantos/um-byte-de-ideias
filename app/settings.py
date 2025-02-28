@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'tags',
     'authors',
     'comments',
+    'app',
 ]
 
 SITE_ID = 1
