@@ -40,9 +40,9 @@ Um Byte de Ideias: Explorando tecnologia, um byte por vez.
           <div class="social-buttons-black">
             <a href="{{ author.linkedin }}" target="_blank"><i class="bi bi-linkedin"></i></a>
             <a href="{{ author.github }}" target="_blank"><i class="bi bi-github"></i></a>
-            {{% if author.x %}}
+            {% if author.x %}
             <a href="{{ author.x }}" target="_blank"><i class="bi bi-twitter-x"></i></a>
-            {{% endif %}}
+            {% endif %}
           </div>
           <a href="{% url 'author_detail' author.slug %}" class="btn btn-primary btn-sm">Ver Posts</a>
         </div>
