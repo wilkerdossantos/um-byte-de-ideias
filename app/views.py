@@ -55,6 +55,9 @@ class DashboardView(TemplateView, LoginRequiredMixin):
         if access_per_path:
             context['access_per_post'] = {}
             for access in access_per_path:
-                post = Post.objects.get(slug=access['path'].split('/')[-2])
-                context['access_per_post'][str(post)] = access['count']
+                try:
+                    post = Post.objects.get(slug=access['path'].split('/')[-2])
+                    context['access_per_post'][str(post)] = access['count']
+                except Post.DoesNotExist:
+                    continue
         return context
